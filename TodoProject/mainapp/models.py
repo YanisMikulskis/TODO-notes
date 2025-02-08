@@ -18,6 +18,7 @@ class TODOModel(models.Model):
     deleted = models.BooleanField(verbose_name='Deleted todo', default=False)
     user = models.ForeignKey(CustomUser, verbose_name='Кто пишет заметку', on_delete=models.CASCADE)
     active = models.BooleanField(verbose_name='Активность заметки', default=False)
+
     def __str__(self):
         return f'Заметка из проекта {self.project} от пользователя {self.user}\nСоздана {self.created}'
 

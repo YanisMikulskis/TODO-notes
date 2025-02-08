@@ -4,27 +4,32 @@ from .models import ProjectModel, TODOModel
 from usersapp.models import CustomUser
 from rest_framework.serializers import ValidationError
 import textwrap
+from .camelCase_func import to_camel_case, to_snake_case
+
+class CamelCaseMixin:
+    def to_representation(self, instance):
+        data = super().to_representation(instance)
+        return {to_camel_case(key):val for key,val in data.items()}
+
+    def to_internal_value(self, data):
+        data = {to_snake_case(key):val for key,val in data.items()}
+        return super().to_internal_value(data)
 
 
-class ProjectModelSerializer(ModelSerializer):
+
+class ProjectModelSerializer(CamelCaseMixin, ModelSerializer):
     # users = NewCustomUserSerializer(many=True, read_only=True)
 
     class Meta:
         model = ProjectModel
         fields = '__all__'
 
-class TODOModelSerializer(ModelSerializer):
+
+class TODOModelSerializer(CamelCaseMixin, ModelSerializer):
     class Meta:
         model = TODOModel
         fields = '__all__'
         read_only_fields = ['id', 'created', 'updated', 'deleted']
-
-    # def __init__(self, *args, **kwargs):
-    #     super().__init__(*args, **kwargs)
-    #     project = self.context.get('project')
-    #     if project:
-    #         self.fields['user'].queryset = project.users.all()
-
 
 
     def validate_user(self, user):
