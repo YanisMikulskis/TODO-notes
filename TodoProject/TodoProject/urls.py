@@ -18,14 +18,19 @@ from django.contrib import admin
 from django.urls import path, include
 from rest_framework.routers import DefaultRouter
 from usersapp.views import CustomUserViewSet
+from mainapp.views import ProjectModelViewSet, TODOModelViewSet
 from django.views.generic import RedirectView
 
 router = DefaultRouter()
 router.register('usersapp', CustomUserViewSet)
+router.register('project', ProjectModelViewSet)
+router.register('todo', TODOModelViewSet)
+
+
 
 urlpatterns = [
     path('', RedirectView.as_view(url='api/')),
     path('admin/', admin.site.urls),
     path('api/', include(router.urls)),
-    path('api-auth', include('rest_framework.urls'))
+    path('api-auth', include('rest_framework.urls', namespace='rest_framework'))
 ]
