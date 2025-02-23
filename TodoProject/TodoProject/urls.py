@@ -28,6 +28,7 @@ router.register('todo', TODOModelViewSet)
 
 
 
+
 urlpatterns = [
     path('', RedirectView.as_view(url='api/')),
     path('admin/', admin.site.urls),

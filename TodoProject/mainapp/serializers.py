@@ -49,3 +49,6 @@ class TODOModelSerializer(CamelCaseMixin, ModelSerializer):
                 raise ValidationError(f'Данный проект не ведет ни один пользователь! Заметки могут оставлять только'
                                       f'пользователи, прикрепленные к данному проекту')
         return user
+
+    def get_action(self, obj):
+        return 'restore' if obj.deleted else 'deleteddd'
