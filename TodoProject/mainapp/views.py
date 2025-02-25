@@ -8,6 +8,7 @@ from rest_framework.serializers import ValidationError
 from .pagination import *
 from .filters import *
 from rest_framework import mixins, viewsets
+from .renderers import CustomBrowsableAPIRenderer
 
 class ProjectModelViewSet(ModelViewSet):
     renderer_classes = [JSONRenderer, BrowsableAPIRenderer]
@@ -19,7 +20,7 @@ class ProjectModelViewSet(ModelViewSet):
 
 
 class TODOModelViewSet(ModelViewSet):
-    renderer_classes = [JSONRenderer, BrowsableAPIRenderer]
+    renderer_classes = [JSONRenderer, CustomBrowsableAPIRenderer]
     parser_classes = [JSONParser, FormParser]
     queryset = TODOModel.objects.all()
     serializer_class = TODOModelSerializer

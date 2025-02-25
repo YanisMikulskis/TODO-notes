@@ -5,6 +5,7 @@ from usersapp.models import CustomUser
 from rest_framework.serializers import ValidationError
 import textwrap
 from .camelCase_func import to_camel_case, to_snake_case
+from rest_framework import serializers
 
 class CamelCaseMixin:
     def to_representation(self, instance):
@@ -26,6 +27,10 @@ class ProjectModelSerializer(CamelCaseMixin, ModelSerializer):
 
 
 class TODOModelSerializer(CamelCaseMixin, ModelSerializer):
+    deleted_point = serializers.SerializerMethodField
+    created = serializers.DateTimeField(format="%d.%m.%Y %H:%M:%S", read_only=True)
+    updated = serializers.DateTimeField(format="%d.%m.%Y %H:%M:%S", read_only=True)
+    deleted = serializers.DateTimeField(format="%d.%m.%Y %H:%M:%S", read_only=True)
     class Meta:
         model = TODOModel
         fields = '__all__'
@@ -50,5 +55,5 @@ class TODOModelSerializer(CamelCaseMixin, ModelSerializer):
                                       f'пользователи, прикрепленные к данному проекту')
         return user
 
-    def get_action(self, obj):
-        return 'restore' if obj.deleted else 'deleteddd'
+    def get_deleted_point(self, obj):
+        return obj.deleted
