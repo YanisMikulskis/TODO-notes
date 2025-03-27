@@ -22,6 +22,7 @@ from mainapp.views import ProjectModelViewSet, TODOModelViewSet
 from django.views.generic import RedirectView
 
 router = DefaultRouter()
+
 router.register('usersapp', CustomUserViewSet)
 router.register('project', ProjectModelViewSet)
 router.register('todo', TODOModelViewSet)

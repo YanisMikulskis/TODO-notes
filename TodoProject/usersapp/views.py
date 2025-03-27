@@ -9,6 +9,8 @@ from rest_framework import mixins, viewsets
 class CustomUserViewSet(mixins.ListModelMixin,
                         mixins.RetrieveModelMixin,
                         mixins.UpdateModelMixin,
+                        mixins.CreateModelMixin,
+                        mixins.DestroyModelMixin,
                         viewsets.GenericViewSet):
     queryset = CustomUser.objects.all()
     serializer_class = CustomUserSerializer

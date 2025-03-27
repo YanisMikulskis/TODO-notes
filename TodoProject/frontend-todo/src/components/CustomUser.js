@@ -20,27 +20,22 @@ const CustomUserItem = ({user}) => {
 }
 
 
+
 const CustomUserList = ({users}) => {
     return (
-      <table>
-          <th>
-              First name
-          </th>
-          <th>
-              Last Name
-          </th>
-          <th>
-              Email
-          </th>
-          <th>
-              Username
-          </th>
-
-          {users.map((user) => <CustomUserItem user={user} />)}
+      <table border='1'>
+          <thead>
+          <tr>
+              <th>First name</th>
+              <th>Last name</th>
+              <th>Email</th>
+              <th>Username</th>
+          </tr>
+          </thead>
+          <tbody>
+            {users.map((user) => <CustomUserItem user={user} />)}
+          </tbody>
       </table>
-        /* users — это массив данных о юзерах, который мы передадим в компонент. Используем функцию*/
-/*map, чтобы превратить каждого автора из массива в соответствующий компонент CustomUserItem.*/
     )
 }
-
 export default CustomUserList
