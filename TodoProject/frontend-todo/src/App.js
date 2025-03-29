@@ -55,7 +55,7 @@ class AppTodoFront extends React.Component {
                   <Route exact path='/customusers' render={(props) => <CustomUserList {...props} users={this.state.users} />} />
                   <Route exact path='/projects' render={(props) => <ProjectsList {...props} projects={this.state.projects} />} />
                   <Route exact path='/todo' render={(props) => <TodoList {...props} todos={this.state.todos} />} />
-                  <Route path='/projects/:id' render={(props) => <OneProjectItem {...props} one_project={this.state.projects} />} />
+                  <Route path='/projects/:id' render={(props) => <OneProjectItem {...props} projects={this.state.projects} />} />
                 </Switch>
           <FooterItem />
            </div>

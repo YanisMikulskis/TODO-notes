@@ -11,7 +11,7 @@ const ProjectItem = ({project}) => {
                 {project.Name}
             </td>
             <td>
-                {project.Users}
+                {project.Users?.join(', ')}
             </td>
 
         </tr>

@@ -23,7 +23,6 @@ class ProjectModelSerializer(ModelSerializer):
         """
         Преобразует входящие данные из camelCase в snake_case.
         """
-        # data_copy = data.copy()
 
         data_result = {
 
