@@ -1,7 +1,12 @@
 from django.db import models
 from usersapp.models import CustomUser
-
+from django.utils.timezone import now
 # Create your models here.
+
+
+
+
+
 class ProjectModel(models.Model):
     name = models.CharField(verbose_name='Название', max_length=128, default='Default project')
     url_repo = models.URLField(max_length=200, verbose_name='Репозиторий с проектом', blank=True)
@@ -23,7 +28,7 @@ class TODOModel(models.Model):
         return f'Заметка из проекта {self.project} от пользователя {self.user}\nСоздана {self.created}'
 
     def delete(self, *args, **kwargs):
-        self.deleted = now()
+        self.deleted = True if not self.deleted else False
         self.updated = now()
         self.save()
 
