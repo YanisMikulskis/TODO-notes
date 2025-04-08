@@ -10,7 +10,7 @@ from .filters import *
 from rest_framework import mixins, viewsets
 from .renderers import CustomBrowsableAPIRenderer
 
-
+from rest_framework.permissions import DjangoModelPermissionsOrAnonReadOnly, DjangoModelPermissions
 
 
 class ProjectModelViewSet(ModelViewSet):
@@ -20,6 +20,7 @@ class ProjectModelViewSet(ModelViewSet):
     serializer_class = ProjectModelSerializer
     pagination_class = ProjectPagination
     filterset_class = ProjectFilter
+    permission_classes = [DjangoModelPermissionsOrAnonReadOnly]
 
 
 class TODOModelViewSet(ModelViewSet):
@@ -29,6 +30,7 @@ class TODOModelViewSet(ModelViewSet):
     serializer_class = TODOModelSerializer
     pagination_class = TodoPagination
     filterset_class = TodoFilter
+    permission_classes = [DjangoModelPermissions]
 
     # def get_serializer_context(self):
     #     context = super().get_serializer_context()

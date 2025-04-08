@@ -10,6 +10,7 @@ class CustomUser(AbstractUser, PermissionsMixin):
     email = models.CharField(max_length=64, unique=True)
     last_name = models.CharField(max_length=64, blank=True)
     username = models.CharField(max_length=32, unique=True, blank=True)
+    test_date = models.IntegerField(blank=True, default=0)
 
     # def save(self):
     #

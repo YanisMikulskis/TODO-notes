@@ -20,7 +20,7 @@ from rest_framework.routers import DefaultRouter
 from usersapp.views import CustomUserViewSet
 from mainapp.views import ProjectModelViewSet, TODOModelViewSet
 from django.views.generic import RedirectView
-
+from rest_framework.authtoken import views
 router = DefaultRouter()
 
 router.register('usersapp', CustomUserViewSet)
@@ -34,5 +34,6 @@ urlpatterns = [
     path('', RedirectView.as_view(url='api/')),
     path('admin/', admin.site.urls),
     path('api/', include(router.urls)),
-    path('api-auth', include('rest_framework.urls', namespace='rest_framework'))
+    path('api-auth', include('rest_framework.urls', namespace='rest_framework')),
+    path('api-token-auth/', views.obtain_auth_token)
 ]
