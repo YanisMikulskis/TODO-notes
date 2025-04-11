@@ -48,6 +48,23 @@ class ProjectModelSerializer(ModelSerializer):
         model = ProjectModel
         fields = '__all__'
 
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        request = self.context.get('request')
+        user = request.user if request else None
+        if user and not user.is_authenticated:
+            allowed_fields = ['name']
+        else:
+            allowed_fields = self.fields
+        for field in list(self.fields):
+            if field not in allowed_fields:
+                self.fields.pop(field)
+
+
+
+
+
+
 
 class TODOModelSerializer(ModelSerializer):
     deleted_point = serializers.SerializerMethodField
@@ -62,12 +79,15 @@ class TODOModelSerializer(ModelSerializer):
 #
     def validate_user(self, user):
         project = self.initial_data.get('project') # проект, который выбран в селекторе (точнее его id)
-        if not project:
-            raise f'Проект обязателен'
-        try:
-            project = ProjectModel.objects.get(id=project)
-        except:
-            raise ValidationError(f'Нет такого проекта')
+        project = ProjectModel.objects.get(id=project)
+        print(F'projjj = {project}')
+
+        # if not project:
+        #     raise f'Проект обязателен'
+        # try:
+        #     project = ProjectModel.objects.get(id=project)
+        # except:
+        #     raise ValidationError(f'Нет такого проекта')
         users_project = [i for i in project.users.all()]
         if user not in users_project:
             if users_project:
@@ -77,6 +97,7 @@ class TODOModelSerializer(ModelSerializer):
                 raise ValidationError(f'Данный проект не ведет ни один пользователь! Заметки могут оставлять только'
                                       f'пользователи, прикрепленные к данному проекту')
         return user
+
 
     def get_deleted_point(self, obj):
         return obj.deleted

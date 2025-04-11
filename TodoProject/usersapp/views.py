@@ -9,7 +9,7 @@ from .pagination import CustomUserPagination
 from rest_framework import mixins, viewsets
 from rest_framework.permissions import DjangoModelPermissions
 from time import sleep
-andr = CustomUser.objects.get(id=4)
+
 
 
 class CustomUserViewSet(mixins.ListModelMixin,

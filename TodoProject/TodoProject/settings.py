@@ -11,6 +11,7 @@ https://docs.djangoproject.com/en/5.0/ref/settings/
 """
 
 from pathlib import Path
+from datetime import timedelta
 #Custom user
 AUTH_USER_MODEL = 'usersapp.CustomUser'
 
@@ -46,7 +47,9 @@ INSTALLED_APPS = [
     'mainapp',
     'corsheaders',
     'django_filters',
-    'rest_framework.authtoken'
+    'rest_framework.authtoken',
+    'rest_framework_simplejwt',
+    'rest_framework_simplejwt.token_blacklist'
 ]
 
 MIDDLEWARE = [
@@ -142,7 +145,8 @@ REST_FRAMEWORK = {
 'DEFAULT_AUTHENTICATION_CLASSES': [
     'rest_framework.authentication.BasicAuthentication',
     'rest_framework.authentication.SessionAuthentication',
-    'rest_framework.authentication.TokenAuthentication',
+    # 'rest_framework.authentication.TokenAuthentication',
+    'rest_framework_simplejwt.authentication.JWTAuthentication'
     ],
     'DEFAULT_RENDERER_CLASSES':[
         'rest_framework.renderers.JSONRenderer',
@@ -152,4 +156,13 @@ REST_FRAMEWORK = {
     'DEFAULT_PAGINATION_CLASS': 'rest_framework.pagination.PageNumberPagination',
     'PAGE_SIZE': 100,
     'DEFAULT_FILTER_BACKENDS': ['django_filters.rest_framework.DjangoFilterBackend']
+}
+
+
+SIMPLE_JWT = {
+    'ACCESS_TOKEN_LIFETIME': timedelta(minutes=10),  # Время жизни Access Token
+    'REFRESH_TOKEN_LIFETIME': timedelta(days=1),    # Время жизни Refresh Token
+    'ROTATE_REFRESH_TOKENS': True,                  # Обновлять Refresh Token при каждом запросе
+    'BLACKLIST_AFTER_ROTATION': True,     # Старые токены попадают в чёрный список
+    # 'AUTH_HEADER_TYPES':('Bearer',)
 }
