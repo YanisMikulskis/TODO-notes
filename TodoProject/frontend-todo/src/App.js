@@ -18,7 +18,7 @@ class AppTodoFront extends React.Component {
     super(props);
     this.state = {
         'api':[],
-      'users': [],
+        'users': [],
         'projects':[],
         'todos':[]
     }

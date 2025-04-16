@@ -13,6 +13,9 @@ from .renderers import CustomBrowsableAPIRenderer
 from rest_framework.permissions import DjangoModelPermissionsOrAnonReadOnly, DjangoModelPermissions
 
 
+
+# class FrontendViewSet(ModelViewSet):
+#     ...
 class ProjectModelViewSet(ModelViewSet):
     renderer_classes = [JSONRenderer, BrowsableAPIRenderer]
     parser_classes = [JSONParser, FormParser, MultiPartParser]

@@ -23,10 +23,14 @@ const Menu = () => {
 
 
             <li>
-                <Link to='/backend'>Бэкенд</Link>
+            <a href="http://localhost:8000/api/" target="_blank" rel="noopener noreferrer">
+                API-backend
+            </a>
             </li>
             <li>
-                <Link to='/admin'>Админка</Link>
+                <a href="http://localhost:8000/admin/" target="_blank" rel="noopener noreferrer">
+                Adminka
+            </a>
             </li>
             <li>
                 <Link to='/customusers'>Пользователи</Link>
