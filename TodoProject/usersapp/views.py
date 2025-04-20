@@ -22,7 +22,7 @@ class CustomUserViewSet(mixins.ListModelMixin,
     serializer_class = CustomUserSerializer
     pagination_class = CustomUserPagination
     filterset_class = CustomUserFilter
-    # permission_classes = [DjangoModelPermissions]
-    permission_classes = [AllowAny]
+    permission_classes = [DjangoModelPermissions]
+    # permission_classes = [AllowAny]
 
 # Create your views here.

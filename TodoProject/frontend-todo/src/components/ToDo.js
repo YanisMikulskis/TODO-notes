@@ -2,14 +2,18 @@ import React from "react";
 
 
 const TodoItem = ({todo}) => {
+    console.log('itititit')
+    console.log(todo)
     return (
         <tr>
-            <td>{todo.Id}</td>
-            <td>{todo.Project}</td>
-            <td>{todo.Text}</td>
-            <td>{todo.Updated}</td>
-            <td>{todo.User}</td>
-            <td>{todo.Active}</td>
+            <td>
+                {todo.id}
+            </td>
+            <td>{todo.project}</td>
+            <td>{todo.text}</td>
+            <td>{todo.updated}</td>
+            <td>{todo.user}</td>
+            <td>{todo.active}</td>
         </tr>
     )
 }
