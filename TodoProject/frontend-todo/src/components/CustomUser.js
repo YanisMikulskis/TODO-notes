@@ -1,6 +1,8 @@
 import React from "react";
 
 const CustomUserItem = ({user}) => {
+    console.log('юзерыыыы')
+    console.log(user)
     return (
         <tr>
             <td>
@@ -31,10 +33,12 @@ const CustomUserList = ({users}) => {
               <th>Last name</th>
               <th>Email</th>
               <th>Username</th>
+
           </tr>
           </thead>
           <tbody>
             {users.map((user) => <CustomUserItem user={user} />)}
+
           </tbody>
       </table>
     )
