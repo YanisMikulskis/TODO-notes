@@ -6,7 +6,6 @@ class CustomBrowsableAPIRenderer(BrowsableAPIRenderer):
         context = super().get_context(data, accepted_media_type, renderer_context)
         if data is None:
             self.get_context(data, accepted_media_type, renderer_context)
-            print(f'fsd {data}')
             if 'deleted' in data:
                 context['delete_form'] = context.get('delete_form', {})
                 if data['deleted']:

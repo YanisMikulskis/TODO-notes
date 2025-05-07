@@ -5,7 +5,6 @@ class ProjectFilter(filters.FilterSet):
     name = filters.CharFilter(lookup_expr='contains')
     class Meta:
         model = ProjectModel
-        print(f'model {model.objects.all()}')
         fields = ['name']
 
 

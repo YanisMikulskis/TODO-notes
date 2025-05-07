@@ -25,6 +25,7 @@ class ProjectModelViewSet(ModelViewSet):
     filterset_class = ProjectFilter
     permission_classes = [DjangoModelPermissionsOrAnonReadOnly]
     # permission_classes = [IsAuthenticated]
+    # permission_classes = [IsAuthenticated]
     # permission_classes = [DjangoModelPermissions]
 
 
@@ -36,6 +37,7 @@ class TODOModelViewSet(ModelViewSet):
     pagination_class = TodoPagination
     filterset_class = TodoFilter
     permission_classes = [DjangoModelPermissions]
+
     # permission_classes = [DjangoModelPermissionsOrAnonReadOnly]
 
     # def get_serializer_context(self):
