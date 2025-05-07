@@ -80,7 +80,6 @@ class TODOModelSerializer(ModelSerializer):
     def validate_user(self, user):
         project = self.initial_data.get('project') # проект, который выбран в селекторе (точнее его id)
         project = ProjectModel.objects.get(id=project)
-        print(F'projjj = {project}')
 
         # if not project:
         #     raise f'Проект обязателен'
