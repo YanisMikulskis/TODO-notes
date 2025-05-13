@@ -57,18 +57,39 @@ class CustomRouter(DefaultRouter):
 
 router = CustomRouter()
 
-router.register('usersapp', CustomUserViewSet)
+router.register('custom_user', CustomUserViewSet)
 router.register('project', ProjectModelViewSet)
 router.register('todo', TODOModelViewSet)
+
+router_versioning = DefaultRouter()
+router_versioning.register('', CustomUserViewSet)
 
 urlpatterns = [
     path('', RedirectView.as_view(url='api/')),
     path('admin/', admin.site.urls),
-    path('api/', include(router.urls)),
     path('api-auth', include('rest_framework.urls', namespace='rest_framework')),
     path('api/token/', TokenObtainPairView.as_view(), name='token_obtain_pair'),
     path('api/token/refresh/', TokenRefreshView.as_view(), name='token_refresh'),
+
+    path('api/', include(
+        [path('', include(router.urls)),
+         path('custom_user/', include((router_versioning.urls, 'usersapp'), namespace='1.0'))
+         ])),
+
+    path('api/custom_user/ver/1.0', include((router_versioning.urls, 'usersapp'), namespace='1.0')),
+    path('api/custom_user/ver/2.0', include((router_versioning.urls, 'usersapp'), namespace='2.0')),
+
+
+
+
+
+
+
+
     # path('api/token/verify/', TokenVerifyView.as_view(), name='token_verify'),
+
+
+
 
 
 ]
