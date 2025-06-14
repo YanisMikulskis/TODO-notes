@@ -1,7 +1,7 @@
 import time
 
 from django.shortcuts import render
-from .serializers import CustomUserSerializer
+from .serializers import CustomUserSerializer, CustomUserSerializerVer2
 from .models import CustomUser
 from rest_framework.viewsets import ModelViewSet
 from .filters import CustomUserFilter
@@ -24,5 +24,9 @@ class CustomUserViewSet(mixins.ListModelMixin,
     filterset_class = CustomUserFilter
     # permission_classes = [DjangoModelPermissions]
     permission_classes = [AllowAny]
+    def get_serializer_class(self):
+        if self.request.version == '2.0':
+            return CustomUserSerializerVer2
+        return CustomUserSerializer
 
 # Create your views here.
