@@ -16,7 +16,7 @@ Including another URLconf
 """
 import rest_framework.views
 from django.contrib import admin
-from django.urls import path, include
+from django.urls import path, include, re_path
 from rest_framework.routers import DefaultRouter
 from usersapp.views import CustomUserViewSet
 from mainapp.views import ProjectModelViewSet, TODOModelViewSet
@@ -26,6 +26,21 @@ from rest_framework_simplejwt.views import (TokenObtainPairView, TokenRefreshVie
 from rest_framework.response import Response
 from django.http import HttpResponse
 from rest_framework.routers import APIRootView
+from drf_yasg.views import get_schema_view
+from drf_yasg import openapi
+from rest_framework.permissions import AllowAny
+
+schema_view = get_schema_view(
+    openapi.Info(
+        title='rest_library',
+        default_version='1.0',
+        description='doc to out project todo',
+        contact=openapi.Contact(email='admin@admin.local'),
+        license=openapi.License(name='MIT License'),
+    ),
+    public=True,
+    permission_classes=[AllowAny]
+)
 
 
 # router = DefaultRouter()
@@ -81,14 +96,13 @@ urlpatterns = [
 
 
 
-
-
+    re_path(r'^swagger(?P<format>\.json|\.yaml)$', schema_view.without_ui(cache_timeout=0), name='schema-json'),
+    path('swagger/', schema_view.with_ui('swagger', cache_timeout=0), name='schema-swagger-ui'),
+    path('redoc/', schema_view.with_ui('redoc', cache_timeout=0), name='schema-redoc'),
 
 
 
     # path('api/token/verify/', TokenVerifyView.as_view(), name='token_verify'),
-
-
 
 
 
