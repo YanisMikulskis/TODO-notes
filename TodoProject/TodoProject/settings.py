@@ -42,6 +42,7 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'graphene_django',
     'drf_yasg',
     'rest_framework',
     'usersapp',
@@ -175,4 +176,10 @@ SIMPLE_JWT = {
     'ROTATE_REFRESH_TOKENS': True,                  # Обновлять Refresh Token при каждом запросе
     'BLACKLIST_AFTER_ROTATION': True,     # Старые токены попадают в чёрный список
     # 'AUTH_HEADER_TYPES':('Bearer',)
+}
+
+
+
+GRAPHENE = {
+    'SCHEMA': 'TodoProject.schema.schema'
 }
