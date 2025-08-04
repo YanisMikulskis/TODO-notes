@@ -17,7 +17,7 @@ import Cookies from "universal-cookie";
 const NotFound404 = ({ location }) => {
     return (
         <div>
-            <h1>Сраница по адресу '{location.pathname}' не найдена</h1>
+            <h1>Страница по адресу '{location.pathname}' не найдена</h1>
         </div>
     )
 }
@@ -34,7 +34,14 @@ class AppTodoFront extends React.Component {
     }
     }
 
-
+    deleteProject(id) {
+        const headers = this.get_headers()
+        axios.delete(`http://127.0.0.1:8000/api/project/${id}/`, {headers:headers})
+            .then(response => {
+                this.setState({projects: this.state.projects.filter((item)=>
+                        item.id !== id)})
+            }).catch(error => console.log(error))
+    }
 
     set_token(token) {
 
@@ -116,7 +123,7 @@ class AppTodoFront extends React.Component {
         })
 
 
-        axios.get("http://127.0.0.1:8000/api/usersapp/", {headers})
+        axios.get("http://127.0.0.1:8000/api/custom_user/", {headers})
             .then(response => {
                 this.setState({'users': response.data.results})
             }).catch(error => {
@@ -182,7 +189,8 @@ class AppTodoFront extends React.Component {
                   <Route exact path='/todos' render={(props) => <TodoList {...props} todos={this.state.todos} />} />
                   <Route exact path='/login' render={(props) => <LoginForm get_token={(username, password) => this.get_token(username, password)} />} />
 
-                  <Route path='/projects/:id' render={(props) => <OneProjectItem {...props} projects={this.state.projects} />} />
+                  <Route path='/projects/:Id' render={(props) => <OneProjectItem {...props} projects={this.state.projects}
+                                                                                 deleteProject={(id)=>this.deleteProject(id)}/>} />
                 </Switch>
           <FooterItem />
            </div>
