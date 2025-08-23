@@ -12,7 +12,7 @@ import ProjectsList from "./components/Projects";
 import OneProjectItem from "./components/OneProject";
 import LoginForm from "./components/Auth_Todo";
 import Cookies from "universal-cookie";
-
+import ProjectForm from "./components/ProjectForm";
 
 const NotFound404 = ({ location }) => {
     return (
@@ -33,6 +33,26 @@ class AppTodoFront extends React.Component {
         'username': localStorage.getItem('login') || ''
     }
     }
+
+    createProject(name, url_repo, users) {
+        const headers = this.get_headers()
+        const data = {name:name, url_repo:url_repo, users:users}
+        console.log('-------e-e-e')
+        console.log(users)
+        console.log(data)
+        axios.post('http://127.0.0.1:8000/api/project/', data, {headers:headers})
+            .then(response => {
+                this.load_data()
+        }).catch(error => {
+            if (error.response) {
+                console.log("Ошибка:", error.response.status, error.response.data)
+            } else {
+                console.log("Ошибка сети:", error.message)
+    }
+})
+    }
+
+
 
     deleteProject(id) {
         const headers = this.get_headers()
@@ -126,18 +146,15 @@ class AppTodoFront extends React.Component {
         axios.get("http://127.0.0.1:8000/api/custom_user/", {headers})
             .then(response => {
                 this.setState({'users': response.data.results})
-            }).catch(error => {
-            console.log(error)
-            this.setState({users: []})
+            }).catch(error => console.log(error))
 
-        })
+
+
 
 
         axios.get("http://127.0.0.1:8000/api/todo/", {headers})
             .then(response => {
                 this.setState({'todos': response.data.results})
-                console.log('ffsdfsfsg')
-                console.log(response.data.results)
             }).catch(error => {
             console.log(error)
             this.setState({todos: []})
@@ -189,8 +206,18 @@ class AppTodoFront extends React.Component {
                   <Route exact path='/todos' render={(props) => <TodoList {...props} todos={this.state.todos} />} />
                   <Route exact path='/login' render={(props) => <LoginForm get_token={(username, password) => this.get_token(username, password)} />} />
 
-                  <Route path='/projects/:Id' render={(props) => <OneProjectItem {...props} projects={this.state.projects}
+                  <Route exact path='/projects/create' component={ () => <ProjectForm users = {this.state.users}
+                                                                                      createProject={(name, url_repo, users) => this.createProject(name, url_repo, users)}/>}
+                         />
+
+
+                  <Route exact path='/projects/:Id' render={(props) => <OneProjectItem {...props} projects={this.state.projects}
                                                                                  deleteProject={(id)=>this.deleteProject(id)}/>} />
+
+
+
+
+
                 </Switch>
           <FooterItem />
            </div>
