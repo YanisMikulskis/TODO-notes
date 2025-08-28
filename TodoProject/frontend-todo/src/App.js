@@ -13,6 +13,8 @@ import OneProjectItem from "./components/OneProject";
 import LoginForm from "./components/Auth_Todo";
 import Cookies from "universal-cookie";
 import ProjectForm from "./components/ProjectForm";
+import TodoForm from "./components/TodoForm"
+
 
 const NotFound404 = ({ location }) => {
     return (
@@ -37,9 +39,6 @@ class AppTodoFront extends React.Component {
     createProject(name, url_repo, users) {
         const headers = this.get_headers()
         const data = {name:name, url_repo:url_repo, users:users}
-        console.log('-------e-e-e')
-        console.log(users)
-        console.log(data)
         axios.post('http://127.0.0.1:8000/api/project/', data, {headers:headers})
             .then(response => {
                 this.load_data()
@@ -51,6 +50,20 @@ class AppTodoFront extends React.Component {
     }
 })
     }
+
+    createTodo(project, text, user) {
+        const headers = this.get_headers()
+        const data = {project:project, text:text, user:user}
+        console.log('данные')
+        console.log(data)
+        axios.post('http://127.0.0.1:8000/api/todo/', data, {headers:headers})
+            .then(response => {
+                this.load_data()
+        }).catch(error => console.log(error))
+    }
+
+
+
 
 
 
@@ -112,22 +125,6 @@ class AppTodoFront extends React.Component {
             return headers
     }
 
-    // refresh_token() {
-    //     const refresh = localStorage.getItem('refresh_token')
-    //     if (refresh) {
-    //         axios.post('http://127.0.0.1:8000/api/token/refresh/', {
-    //             refresh: refresh
-    //         })
-    //             .then(response => {
-    //                 this.set_token(response.data.access)
-    //             })
-    //             .catch(error => {
-    //                 this.logout()
-    //                 alert('сессия истекла, войдите заново')
-    //             })
-    //     }
-    // }
-
 
     load_data() {
 
@@ -167,26 +164,7 @@ class AppTodoFront extends React.Component {
         // this.load_data()
     }
 
-    // Promise.all([
-    //     axios.get('http://127.0.0.1:8000/api/'),
-    //     axios.get("http://127.0.0.1:8000/api/project/"),
-    //     axios.get("http://127.0.0.1:8000/api/usersapp/"),
-    //     axios.get("http://127.0.0.1:8000/api/todo/")
-    // ])
-    // .then(([apiRes, projectsRes, usersRes, todosRes]) => {
-    //     this.setState({
-    //         api: apiRes.data.results,
-    //         projects: projectsRes.data.results,
-    //         users: usersRes.data.results,
-    //         todos: todosRes.data.results
-    //     });
-    // })
 
-
-//     .catch(error => console.error("Ошибка при загрузке данныххх:", error));
-//      console.log('юзеры состояние')
-//      console.log(this.state.users)
-// }
 
 
 
@@ -213,6 +191,11 @@ class AppTodoFront extends React.Component {
 
                   <Route exact path='/projects/:Id' render={(props) => <OneProjectItem {...props} projects={this.state.projects}
                                                                                  deleteProject={(id)=>this.deleteProject(id)}/>} />
+
+                  <Route exact path='/todos/create' component={ () => <TodoForm projects = {this.state.projects}
+                                                                                users = {this.state.users}
+                                                                              createTodo={(projects, text, users) => this.createTodo(projects, text, users)}/>}
+                         />
 
 
 
