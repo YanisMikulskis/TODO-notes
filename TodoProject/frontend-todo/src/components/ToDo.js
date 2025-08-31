@@ -1,4 +1,5 @@
 import React from "react";
+import {Link} from "react-router-dom";
 
 
 const TodoItem = ({todo}) => {
@@ -20,6 +21,7 @@ const TodoItem = ({todo}) => {
 
 const TodoList = ({todos}) => {
     return (
+        <>
       <table border='1'>
           <thead>
           <tr>
@@ -34,7 +36,12 @@ const TodoList = ({todos}) => {
           <tbody>
             {todos.map((todo) => <TodoItem todo={todo} />)}
           </tbody>
+
       </table>
+            <Link to='/todos/create'>Добавить заметку</Link>
+            </>
+
+
     )
 }
 

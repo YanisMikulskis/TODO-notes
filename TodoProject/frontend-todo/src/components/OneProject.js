@@ -1,39 +1,41 @@
 import React from "react";
-import { useParams } from 'react-router-dom'
+import { useParams } from 'react-router-dom';
 
-const OneProjectItem = ({ projects }) => {
+const OneProjectItem = ({ projects, deleteProject }) => {
     let { Id } = useParams();
-    let project = projects.find((project) => project.ID === Id)
+
+    let project = projects.find((project) => project.Id === parseInt(Id)); // ключевая правка
 
     if (!project) {
-        return <div>Project not found</div>
+        return <div>Project not found</div>;
     }
+
     return (
-        <table border='1'>
-            <thead>
-        <tr>
-            <th>Name</th>
-            <th>UrlRepository</th>
-        </tr>
-        </thead>
-        <tbody>
-        <tr>
-            <th>{project.Name}</th>
-            <td>
-                <a href={project.UrlRepo} target="_blank" rel="noopener noreferrer">
-                    {project.UrlRepo} </a>
-            </td>
+        <>
+            <table border="1">
+                <thead>
+                    <tr>
+                        <th>Name</th>
+                        <th>UrlRepository</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>{project.Name}</td>
+                        <td>
+                            <a href={project.UrlRepo} target="_blank" rel="noopener noreferrer">
+                                {project.UrlRepo}
+                            </a>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
 
-        </tr>
-        </tbody>
+            <button onClick={() => deleteProject(project.Id)} type="button">
+                Удалить проект
+            </button>
+        </>
+    );
+};
 
-
-
-        </table>
-
-
-    )
-}
-
-
-export default OneProjectItem
+export default OneProjectItem;

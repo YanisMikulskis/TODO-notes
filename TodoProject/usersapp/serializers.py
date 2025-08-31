@@ -6,12 +6,7 @@ class CustomUserSerializer(ModelSerializer):
     class Meta:
         model = CustomUser
 
-        fields = [
-            'first_name',
-            'last_name',
-            'username',
-            'email'
-        ]
+        fields = '__all__'
 
     def create(self, validated_data):
         # Убираем 'username' из данных, если оно передано

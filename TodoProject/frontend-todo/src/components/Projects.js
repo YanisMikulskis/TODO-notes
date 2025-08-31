@@ -19,7 +19,9 @@ const ProjectItem = ({project}) => {
 }
 
 const ProjectList = ({ projects }) => {
+    console.log(projects)
   return (
+      <>
     <table border="1">
       <thead>
         <tr>
@@ -27,12 +29,16 @@ const ProjectList = ({ projects }) => {
           <th>ID</th>
           <th>Название</th>
           <th>Пользователи (id)</th>
+
         </tr>
       </thead>
       <tbody>
-      {projects.map((project) => <ProjectItem project={project} />)}
+      {projects.map((project) => <ProjectItem key={project.Id} project={project} />)}
       </tbody>
     </table>
+    <Link to='/projects/create'>Добавить проект</Link>
+
+          </>
   );
 };
 

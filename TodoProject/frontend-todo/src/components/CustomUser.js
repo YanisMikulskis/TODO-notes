@@ -6,6 +6,9 @@ const CustomUserItem = ({user}) => {
     return (
         <tr>
             <td>
+                {user.id}
+            </td>
+            <td>
                 {user.first_name}
             </td>
             <td>
@@ -29,6 +32,7 @@ const CustomUserList = ({users}) => {
       <table border='1'>
           <thead>
           <tr>
+              <th>id</th>
               <th>First name</th>
               <th>Last name</th>
               <th>Email</th>
