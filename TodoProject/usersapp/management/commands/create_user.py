@@ -1,11 +1,15 @@
 from django.core.management.base import BaseCommand
 from usersapp.models import CustomUser
 
+from faker import Faker
 
+
+fake = Faker()
 class Command(BaseCommand):
     help = 'Создание пользовательской команды'
 
     def handle(self, *args, **options):
+        print(f'FAAAAAAAKE {fake.name()}')
         if not CustomUser.objects.filter(username='admin').exists():
             CustomUser.objects.create_superuser(
                 username='admin',

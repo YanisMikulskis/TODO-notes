@@ -2,12 +2,17 @@
 
 from django.db import migrations
 from sys import argv
+from faker import Faker
+
+faker = Faker()
 def forward_func(apps, schema_editor):
     if 'test' in argv:
         return
     user_model = apps.get_model('usersapp', 'CustomUser')
+
     if not user_model.objects.filter(first_name='Dima').exists():
         user_model.objects.create(
+            username = faker.name(),
             first_name = 'Dima',
             last_name = 'Vaskov',
             email = 'dima@mail.ru'

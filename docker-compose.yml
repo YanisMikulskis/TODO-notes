@@ -1,0 +1,45 @@
+
+
+services:
+  db_todo:
+    image: postgres:13.1
+    container_name: postgres_docker_todo
+    privileged: true
+    ports:
+      - 5432:5432
+    environment:
+      POSTGRES_USER: todo_man
+      POSTGRES_PASSWORD: todo_man12345
+      POSTGRES_DB: todo
+#  adminer_todo:
+#    image: adminer:4.7.8-standalone
+#    container_name: adminer_docker_todo
+#    restart: always
+#    ports:
+#      - 8080:8080
+#    depends_on:
+#      - db_todo
+
+  backend_todo:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    ports:
+      - 8080:8080
+    environment:
+      POSTGRES_USER: todo_man
+      POSTGRES_PASSWORD: todo_man12345
+      POSTGRES_DB: todo
+      POSTGRES_HOST: db_todo
+
+    command:
+      >
+      bash -c "
+      ./wait-for-postgres.sh db_todo
+      && python manage.py migrate
+      && python manage.py create_user
+      && gunicorn TodoProject.wsgi -b 0.0.0.0:8080
+      "
+
+    depends_on:
+      - db_todo
